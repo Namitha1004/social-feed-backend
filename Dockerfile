@@ -17,8 +17,8 @@ RUN npx prisma generate
 # Copy application code
 COPY . .
 
-# Create /data directory for SQLite database
-RUN mkdir -p /data
+# Create data directory for SQLite database
+RUN mkdir -p ./data
 
 # Expose port
 EXPOSE 3000

@@ -59,14 +59,9 @@ git push -u origin main
    RATE_LIMIT_MAX_REQUESTS = 100
    ```
 
-6. **Add Persistent Disk**:
-   - Click **"Disks"** tab
-   - Click **"Link New Disk"**
-   - **Name**: `data-disk`
-   - **Mount Path**: `/data`
-   - **Size**: `1 GB`
+6. Click **"Create Web Service"**
 
-7. Click **"Create Web Service"**
+**⚠️ Note**: Free tier doesn't support persistent disks. Database data will be lost on redeploy. See `FREE_TIER_NOTE.md` for details.
 
 ### Step 3: Verify Deployment
 
@@ -109,8 +104,8 @@ You should see:
 | **Build Command** | `npm ci && npx prisma generate` |
 | **Start Command** | `npm start` |
 | **Plan** | Free |
-| **Disk Mount** | `/data` (1 GB) |
-| **Database Path** | `file:/data/dev.db` |
+| **Database Path** | `file:./data/dev.db` |
+| **Data Persistence** | ⚠️ Ephemeral (lost on redeploy) |
 
 ## 🎯 After Deployment
 

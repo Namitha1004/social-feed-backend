@@ -85,14 +85,9 @@ git push -u origin main
    RATE_LIMIT_MAX_REQUESTS=100
    ```
 
-6. **Add Persistent Disk**:
-   - Click **"Disks"** tab
-   - Click **"Link New Disk"**
-   - **Name**: `data-disk`
-   - **Mount Path**: `/data`
-   - **Size**: `1 GB` (free tier limit)
+6. Click **"Create Web Service"**
 
-7. Click **"Create Web Service"**
+**Note**: Free tier doesn't support persistent disks. Database is stored in app directory (`./data/dev.db`) but data will be lost on redeploy. See `FREE_TIER_NOTE.md` for alternatives.
 
 ## Step 4: First Deployment
 
@@ -118,9 +113,12 @@ curl https://your-app-name.onrender.com/
 
 ### Database Persistence
 
-- SQLite database is stored at `/data/dev.db` (persistent disk)
-- Data persists across deployments
-- **Backup**: Consider exporting data periodically
+⚠️ **Free Tier Limitation**: Persistent disks are NOT available on free tier.
+
+- SQLite database is stored at `./data/dev.db` (in app directory)
+- Data persists during service uptime
+- **Data is LOST on redeploy or restart**
+- See `FREE_TIER_NOTE.md` for persistent database options
 
 ### Environment Variables
 

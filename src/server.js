@@ -1,7 +1,7 @@
 import app from './app.js';
 import { logger } from './utils/logger.util.js';
 import prisma from './config/database.js';
-import { existsSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 import { execSync } from 'child_process';
 
 const PORT = process.env.PORT || 3000;
@@ -9,7 +9,16 @@ const PORT = process.env.PORT || 3000;
 // Initialize database on first start (for production)
 async function ensureDatabase() {
   if (process.env.NODE_ENV === 'production') {
-    const dbPath = process.env.DATABASE_URL?.replace('file:', '') || '/data/dev.db';
+    // Get database path from env or use default
+    const dbUrl = process.env.DATABASE_URL || 'file:./data/dev.db';
+    const dbPath = dbUrl.replace('file:', '');
+    
+    // Ensure directory exists
+    const dbDir = dbPath.substring(0, dbPath.lastIndexOf('/'));
+    if (dbDir && !existsSync(dbDir)) {
+      mkdirSync(dbDir, { recursive: true });
+      logger.info(`Created database directory: ${dbDir}`);
+    }
     
     if (!existsSync(dbPath)) {
       logger.info('Database not found. Initializing...');

@@ -11,7 +11,7 @@ services:
       - key: PORT
         value: 3000
       - key: DATABASE_URL
-        value: file:/data/dev.db
+        value: file:./data/dev.db
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
@@ -24,8 +24,4 @@ services:
         value: 900000
       - key: RATE_LIMIT_MAX_REQUESTS
         value: 100
-    disk:
-      name: data-disk
-      mountPath: /data
-      sizeGB: 1
 
